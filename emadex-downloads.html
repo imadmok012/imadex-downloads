@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emadex Downloads - منصة تحميل الألعاب والمجلة الرقمية</title>
+    <meta name="description" content="منصة Emadex Downloads - تحميل ألعاب PC و Android، أدوات، مودات، ومجلة رقمية متخصصة في عالم الألعاب والتكنولوجيا">
+    <meta name="keywords" content="تحميل ألعاب, ألعاب كمبيوتر, ألعاب أندرويد, مودات ألعاب, أدوات, مجلة ألعاب">
+    <meta name="author" content="Emadex Downloads">
+    <meta property="og:title" content="Emadex Downloads - منصة تحميل الألعاب والمجلة الرقمية">
+    <meta property="og:description" content="منصة متكاملة لتحميل الألعاب ومقالات المجلة الرقمية">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- Google Fonts for Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#2563eb',
+                            dark: '#1d4ed8'
+                        },
+                        secondary: {
+                            DEFAULT: '#7c3aed',
+                            dark: '#6d28d9'
+                        },
+                        dark: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif']
+                    },
+                    spacing: {
+                        '128': '32rem',
+                        '144': '36rem'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .rtl {
+            direction: rtl;
+        }
+        
+        .ltr {
+            direction: ltr;
+        }
+        
+        .game-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .article-card {
+            transition: all 0.3s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateX(-5px);
+        }
+        
+        .countdown {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .language-switch {
+            transition: all 0.3s ease;
+        }
+        
+        .language-switch:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-cairo dark">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- Logo and Site Name -->
+                <div class="flex items-center space-x-3 space-x-reverse mb-4 md:mb-0">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <span class="text-2xl font-bold">E</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                            Emadex Downloads
+                        </h1>
+                        <p class="text-sm text-gray-400">منصة تحميل الألعاب والمجلة الرقمية</p>
+                    </div>
+                </div>
+                
+                <!-- Language Switcher -->
+                <div class="flex items-center space-x-2 space-x-reverse mb-4 md:mb-0">
+                    <button id="lang-ar" class="language-switch px-3 py-1 bg-primary rounded-lg text-sm font-medium">
+                        <i class="fas fa-language mr-1"></i>العربية
+                    </button>
+                    <button id="lang-fr" class="language-switch px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm font-medium">
+                        <i class="fas fa-language mr-1"></i>Français
+                    </button>
+                    <button id="lang-en" class="language-switch px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm font-medium">
+                        <i class="fas fa-language mr-1"></i>English
+                    </button>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="w-full md:w-auto mb-4 md:mb-0">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            placeholder="ابحث عن ألعاب أو مقالات..." 
+                            class="w-full md:w-64 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        >
+                        <button class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors">
+                        <i class="fas fa-user mr-2"></i>تسجيل الدخول
+                    </button>
+                    <button class="px-4 py-2 bg-primary hover:bg-primary-dark rounded-lg transition-colors">
+                        <i class="fas fa-download mr-2"></i>تحميلاتي
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Main Navigation -->
+            <nav class="mt-6">
+                <ul class="flex flex-wrap justify-center space-x-8 space-x-reverse">
+                    <li><a href="#home" class="text-lg font-medium hover:text-primary transition-colors">الرئيسية</a></li>
+                    <li><a href="#games" class="text-lg font-medium hover:text-primary transition-colors">الألعاب</a></li>
+                    <li><a href="#magazine" class="text-lg font-medium hover:text-primary transition-colors">المجلة</a></li>
+                    <li><a href="#categories" class="text-lg font-medium hover:text-primary transition-colors">التصنيفات</a></li>
+                    <li><a href="#trending" class="text-lg font-medium hover:text-primary transition-colors">الأكثر تحميلاً</a></li>
+                    <li><a href="#about" class="text-lg font-medium hover:text-primary transition-colors">من نحن</a></li>
+                    <li><a href="#contact" class="text-lg font-medium hover:text-primary transition-colors">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section id="home" class="py-16 bg-gradient-to-b from-gray-900 to-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">مرحباً بكم في <span class="text-primary">Emadex Downloads</span></h2>
+                    <p class="text-xl text-gray-300 mb-8">منصة متكاملة لتحميل الألعاب ومقالات المجلة الرقمية</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#games" class="px-8 py-3 bg-primary hover:bg-primary-dark rounded-lg text-lg font-medium transition-colors">
+                            <i class="fas fa-gamepad mr-2"></i>استكشف الألعاب
+                        </a>
+                        <a href="#magazine" class="px-8 py-3 bg-secondary hover:bg-secondary-dark rounded-lg text-lg font-medium transition-colors">
+                            <i class="fas fa-newspaper mr-2"></i>اقرأ المجلة
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                    <div class="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 text-center border border-gray-700">
+                        <div class="text-3xl font-bold text-primary mb-2">1,250+</div>
+                        <div class="text-gray-300">لعبة متاحة</div>
+                    </div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 text-center border border-gray-700">
+                        <div class="text-3xl font-bold text-secondary mb-2">500+</div>
+                        <div class="text-gray-300">مقالة مجلة</div>
+                    </div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 text-center border border-gray-700">
+                        <div class="text-3xl font-bold text-green-500 mb-2">50K+</div>
+                        <div class="text-gray-300">مستخدم نشط</div>
+                    </div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 text-center border border-gray-700">
+                        <div class="text-3xl font-bold text-yellow-500 mb-2">2M+</div>
+                        <div class="text-gray-300">تحميل شهري</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="py-16 bg-gray-900">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="text-3xl font-bold">الألعاب الجديدة</h2>
+                    <a href="#all-games" class="text-primary hover:text-primary-dark transition-colors">
+                        عرض الكل <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Game Categories -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                    <div class="bg-gray-800 hover:bg-gray-700 rounded-xl p-6 text-center cursor-pointer transition-colors border border-gray-700">
+                        <i class="fas fa-desktop text-4xl text-primary mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">ألعاب PC</h3>
+                        <p class="text-gray-400">أحدث ألعاب الكمبيوتر</p>
+                    </div>
+                    <div class="bg-gray-800 hover:bg-gray-700 rounded-xl p-6 text-center cursor-pointer transition-colors border border-gray-700">
+                        <i class="fas fa-mobile-alt text-4xl text-green-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">ألعاب Android</h3>
+                        <p class="text-gray-400">ألعاب الهواتف الذكية</p>
+                    </div>
+                    <div class="bg-gray-800 hover:bg-gray-700 rounded-xl p-6 text-center cursor-pointer transition-colors border border-gray-700">
+                        <i class="fas fa-tools text-4xl text-yellow-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">أدوات ومودات</h3>
+                        <p class="text-gray-400">أدوات تحسين وتعديل</p>
+                    </div>
+                    <div class="bg-gray-800 hover:bg-gray-700 rounded-xl p-6 text-center cursor-pointer transition-colors border border-gray-700">
+                        <i class="fas fa-gamepad text-4xl text-secondary mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">ألعاب محمولة</h3>
+                        <p class="text-gray-400">ألعاب PS4, Xbox, Switch</p>
+                    </div>
+                </div>
+                
+                <!-- Games Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Game Card 1 -->
+                    <div class="game-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+                        <div class="relative">
+                            <img 
+                                src="https://picsum.photos/600/400?random=1" 
+                                alt="Cyberpunk 2077 - لعبة أكشن ومغامرات مستقبلية" 
+                                class="w-full h-48 object-cover"
+                                loading="lazy"
+                            >
+                            <span class="absolute top-3 left-3 bg-primary px-3 py-1 rounded-full text-sm font-medium">
+                                PC Game
+                            </span>
+                            <span class="absolute top-3 right-3 bg-green-500 px-3 py-1 rounded-full text-sm font-medium">
+                                85 GB
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Cyberpunk 2077</h3>
+                            <p class="text-gray-400 mb-4">لعبة أكشن ومغامرات في عالم مستقبلي مفتوح مع قصص متعددة المسارات</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-sm text-gray-500">الإصدار: 2.1</span>
+                                <span class="text-sm text-gray-500">التاريخ: 2023-12-10</span>
+                            </div>
+                            <button onclick="startDownload('cyberpunk')" class="w-full py-3 bg-primary hover:bg-primary-dark rounded-lg font-medium transition-colors">
+                                <i class="fas fa-download mr-2"></i>اضغط للتحميل
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Game Card 2 -->
+                    <div class="game-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+                        <div class="relative">
+                            <img 
+                                src="https://picsum.photos/600/400?random=2" 
+                                alt="Genshin Impact - لعبة RPG مفتوحة العالم" 
+                                class="w-full h-48 object-cover"
+                                loading="lazy"
+                            >
+                            <span class="absolute top-3 left-3 bg-green-500 px-3 py-1 rounded-full text-sm font-medium">
+                                Android
+                            </span>
+                            <span class="absolute top-3 right-3 bg-green-500 px-3 py-1 rounded-full text-sm font-medium">
+                                15 GB
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Genshin Impact</h3>
+                            <p class="text-gray-400 mb-4">لعبة RPG مفتوحة العالم مع عناصر أكشن ومغامرات في عالم فنتازي</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-sm text-gray-500">الإصدار: 4.3</span>
+                                <span class="text-sm text-gray-500">التاريخ: 2024-01-15</span>
+                            </div>
+                            <button onclick="startDownload('genshin')" class="w-full py-3 bg-primary hover:bg-primary-dark rounded-lg font-medium transition-colors">
+                                <i class="fas fa-download mr-2"></i>اضغط للتحميل
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Game Card 3 -->
+                    <div class="game-card bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+                        <div class="relative">
+                            <img 
+                                src="https://picsum.photos/600/400?random=3" 
+                                alt="Call of Duty: Modern Warfare III - لعبة تصويب تكتيكية" 
+                                class="w-full h-48 object-cover"
+                                loading="lazy"
+                            >
+                            <span class="absolute top-3 left-3 bg-primary px-3 py-1 rounded-full text-sm font-medium">
+                                PC Game
+                            </span>
+                            <span class="absolute top-3 right-3 bg-green-500 px-3 py-1 rounded-full text-sm font-medium">
+                                125 GB
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Call of Duty: MW III</h3>
+                            <p class="text-gray-400 mb-4">لعبة تصويب تكتيكية مع حملة قتالية متعددة اللاعبين عبر الإنترنت</p>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-sm text-gray-500">الإصدار: 1.0</span>
+                                <span class="text-sm text-gray-500">التاريخ: 2023-11-10</span>
+                            </div>
+                            <button onclick="startDownload('cod')" class="w-full py-3 bg-primary hover:bg-primary-dark rounded-lg font-medium transition-colors">
+                                <i class="fas fa-download mr-2"></i>اضغط للتحميل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Magazine Section -->
+        <section id="magazine" class="py-16 bg-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center mb-10">
+                    <h2 class="text-3xl font-bold">المجلة الرقمية</h2>
+                    <a href="#all-articles" class="text-secondary hover:text-secondary-dark transition-colors">
+                        عرض جميع المقالات <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Featured Article -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-900 rounded-xl overflow-hidden border border-gray-700">
+                            <img 
+                                src="https://picsum.photos/800/500?random=4" 
+                                alt="مستقبل الألعاب السحابية وتأثير الذكاء الاصطناعي" 
+                                class="w-full h-64 object-cover"
+                                loading="lazy"
+                            >
+                            <div class="p-8">
+                                <span class="inline-block px-3 py-1 bg-secondary rounded-full text-sm font-medium mb-4">
+                                    تكنولوجيا الألعاب
+                                </span>
+                                <h3 class="text-2xl font-bold mb-4">مستقبل الألعاب السحابية وتأثير الذكاء الاصطناعي</h3>
+                                <p class="text-gray-400 mb-6">استكشاف كيف ستغير الألعاب السحابية والذكاء الاصطناعي صناعة الألعاب في السنوات القادمة، مع تحليل للتحديات والفرص المتاحة.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img 
+                                            src="https://picsum.photos/40?random=5" 
+                                            alt="أحمد التكنولوجي" 
+                                            class="w-10 h-10 rounded-full mr-3"
+                                            loading="lazy"
+                                        >
+                                        <div>
+                                            <div class="font-medium">أحمد التكنولوجي</div>
+                                            <div class="text-sm text-gray-500">منذ 3 أيام • 8 دقائق قراءة</div>
+                                        </div>
+                                    </div>
+                                    <a href="#read-more" class="text-secondary hover:text-secondary-dark transition-colors">
+                                        اقرأ المزيد <i class="fas fa-arrow-left mr-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Articles -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold mb-6">أحدث المقالات</h3>
+                        
+                        <!-- Article 1 -->
+                        <div class="article-card bg-gray-900 rounded-xl p-6 border border-gray-700">
+                            <div class="flex items-start space-x-4 space-x-reverse">
+                                <img 
+                                    src="https://picsum.photos/80?random=6" 
+                                    alt="أفضل ألعاب 2024" 
+                                    class="w-20 h-20 rounded-lg object-cover"
+                                    loading="lazy"
+                                >
+                                <div>
+                                    <span class="inline-block px-2 py-1 bg-primary/20 text-primary rounded text-xs font-medium mb-2">
+                                        مراجعات
+                                    </span>
+                                    <h4 class="font-bold mb-2">أفضل 10 ألعاب متوقعة في 2024</h4>
+                                    <div class="text-sm text-gray-500">منذ يومين • 5 دقائق</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Article 2 -->
+                        <div class="article-card bg-gray-900 rounded-xl p-6 border border-gray-700">
+                            <div class="flex items-start space-x-4 space-x-reverse">
+                                <img 
+                                    src="https://picsum.photos/80?random=7" 
+                                    alt="تحسين أداء الألعاب" 
+                                    class="w-20 h-20 rounded-lg object-cover"
+                                    loading="lazy"
+                                >
+                                <div>
+                                    <span class="inline-block px-2 py-1 bg-green-500/20 text-green-500 rounded text-xs font-medium mb-2">
+                                        أدوات
+                                    </span>
+                                    <h4 class="font-bold mb-2">أفضل أدوات تحسين أداء الألعاب</h4>
+                                    <div class="text-sm text-gray-500">منذ 5 أيام • 7 دقائق</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Article 3 -->
+                        <div class="article-card bg-gray-900 rounded-xl p-6 border border-gray-700">
+                            <div class="flex items-start space-x-4 space-x-reverse">
+                                <img 
+                                    src="https://picsum.photos/80?random=8" 
+                                    alt="ألعاب الهواتف" 
+                                    class="w-20 h-20 rounded-lg object-cover"
+                                    loading="lazy"
+                                >
+                                <div>
+                                    <span class="inline-block px-2 py-1 bg-yellow-500/20 text-yellow-500 rounded text-xs font-medium mb-2">
+                                        أندرويد
+                                    </span>
+                                    <h4 class="font-bold mb-2">ثورة ألعاب الهواتف الذكية</h4>
+                                    <div class="text-sm text-gray-500">منذ أسبوع • 6 دقائق</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Modal -->
+        <div id="downloadModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+            <div class="bg-gray-800 rounded-xl p-8 max-w-md w-full mx-4 border border-gray-700">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-download text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">جاري التوجيه للتحميل</h3>
+                    <p class="text-gray-400 mb-6">سيتم توجيهك إلى MediaFire خلال:</p>
+                    
+                    <div class="text-4xl font-bold text-primary mb-6 countdown" id="countdown">5</div>
+                    
+                    <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <p class="text-sm text-gray-300">
+                            <i class="fas fa-info-circle text-primary mr-2"></i>
+                            "سيتم فتح رابط MediaFire في نافذة جديدة. تأكد من تعطيل مانع الإعلانات إذا واجهت مشاكل."
+                        </p>
+                    </div>
+                    
+                    <div class="flex space-x-3 space-x-reverse">
+                        <button onclick="cancelDownload()" class="flex-1 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-medium transition-colors">
+                            إلغاء
+                        </button>
+                        <button onclick="proceedDownload()" class="flex-1 py-3 bg-primary hover:bg-primary-dark rounded-lg font-medium transition-colors">
+                            تخطي العد
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- About -->
+                <div>
+                    <div class="flex items-center space-x-3 space-x-reverse mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <span class="text-xl font-bold">E</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Emadex Downloads</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        منصة عربية متكاملة لتحميل الألعاب والمحتوى الرقمي. نقدم أحدث الألعاب والمقالات التقنية لعشاق الألعاب.
+                    </p>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-blue-400 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-pink-500 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">روابط سريعة</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">الرئيسية</a></li>
+                        <li><a href="#games" class="text-gray-400 hover:text-primary transition-colors">الألعاب</a></li>
+                        <li><a href="#magazine" class="text-gray-400 hover:text-primary transition-colors">المجلة</a></li>
+                        <li><a href="#categories" class="text-gray-400 hover:text-primary transition-colors">التصنيفات</a></li>
+                        <li><a href="#trending" class="text-gray-400 hover:text-primary transition-colors">الأكثر تحميلاً</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">التصنيفات</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب PC</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب Android</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">أدوات ومودات</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">ألعاب محمولة</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">برامج مساعدة</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">النشرة البريدية</h4>
+                    <p class="text-gray-400 mb-4">اشترك للحصول على آخر التحديثات والعروض</p>
+                    <div class="mb-4">
+                        <input 
+                            type="email" 
+                            placeholder="بريدك الإلكتروني" 
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        >
+                    </div>
+                    <button class="w-full py-3 bg-primary hover:bg-primary-dark rounded-lg font-medium transition-colors">
+                        <i class="fas fa-paper-plane mr-2"></i>اشترك الآن
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-500">
+                    © 2024 Emadex Downloads. جميع الحقوق محفوظة.
+                    <span class="mx-2">•</span>
+                    <a href="#privacy" class="text-gray-400 hover:text-primary transition-colors">سياسة الخصوصية</a>
+                    <span class="mx-2">•</span>
+                    <a href="#terms" class="text-gray-400 hover:text-primary transition-colors">شروط الاستخدام</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Define data at the beginning
+        const gamesData = [
+            {
+                "id": 1,
+                "name": "Cyberpunk 2077",
+                "category": "PC Game",
+                "size": "85 GB",
+                "version": "2.1",
+                "date": "2023-12-10",
+                "mediafireUrl": "https://www.mediafire.com/download/cyberpunk2077"
+            },
+            {
+                "id": 2,
+                "name": "Genshin Impact",
+                "category": "Android",
+                "size": "15 GB",
+                "version": "4.3",
+                "date": "2024-01-15",
+                "mediafireUrl": "https://www.mediafire.com/download/genshinimpact"
+            },
+            {
+                "id": 3,
+                "name": "Call of Duty: MW III",
+                "category": "PC Game",
+                "size": "125 GB",
+                "version": "1.0",
+                "date": "2023-11-10",
+                "mediafireUrl": "https://www.mediafire.com/download/codmw3"
+            }
+        ];
+
+        const articlesData = [
+            {
+                "id": 1,
+                "title": "مستقبل الألعاب السحابية وتأثير الذكاء الاصطناعي",
+                "category": "تكنولوجيا الألعاب",
+                "author": "أحمد التكنولوجي",
+                "readTime": "8 دقائق",
+                "date": "منذ 3 أيام"
+            },
+            {
+                "id": 2,
+                "title": "أفضل 10 ألعاب متوقعة في 2024",
+                "category": "مراجعات",
+                "author": "سارة القارئة",
+                "readTime": "5 دقائق",
+                "date": "منذ يومين"
+            }
+        ];
+
+        // Language switching functionality
+        const languages = {
+            "ar": {
+                "siteName": "Emadex Downloads",
+                "tagline": "منصة تحميل الألعاب والمجلة الرقمية",
+                "home": "الرئيسية",
+                "games": "الألعاب",
+                "magazine": "المجلة",
+                "download": "اضغط للتحميل"
+            },
+            "fr": {
+                "siteName": "Emadex Téléchargements",
+                "tagline": "Plateforme de téléchargement de jeux et magazine numérique",
+                "home": "Accueil",
+                "games": "Jeux",
+                "magazine": "Magazine",
+                "download": "Cliquez pour télécharger"
+            },
+            "en": {
+                "siteName": "Emadex Downloads",
+                "tagline": "Games Download Platform & Digital Magazine",
+                "home": "Home",
+                "games": "Games",
+                "magazine": "Magazine",
+                "download": "Click to Download"
+            }
+        };
+
+        // Download system variables
+        let downloadTimer;
+        let currentDownloadUrl = "";
+        let countdownValue = 5;
+
+        // Language switching
+        document.getElementById("lang-ar").addEventListener("click", () => switchLanguage("ar"));
+        document.getElementById("lang-fr").addEventListener("click", () => switchLanguage("fr"));
+        document.getElementById("lang-en").addEventListener("click", () => switchLanguage("en"));
+
+        function switchLanguage(lang) {
+            const langData = languages[lang];
+            
+            // Update site name and tagline
+            document.querySelector("h1").textContent = langData.siteName;
+            document.querySelector("p.text-sm").textContent = langData.tagline;
+            
+            // Update navigation
+            const navItems = document.querySelectorAll("nav ul li a");
+            navItems[0].textContent = langData.home;
+            navItems[1].textContent = langData.games;
+            navItems[2].textContent = langData.magazine;
+            
+            // Update download buttons
+            const downloadBtns = document.querySelectorAll("button:contains('اضغط للتحميل')");
+            downloadBtns.forEach(btn => {
+                btn.innerHTML = `<i class="fas fa-download mr-2"></i>${langData.download}`;
+            });
+            
+            // Update active language button
+            document.querySelectorAll(".language-switch").forEach(btn => {
+                btn.classList.remove("bg-primary");
+                btn.classList.add("bg-gray-800", "hover:bg-gray-700");
+            });
+            
+            document.getElementById(`lang-${lang}`).classList.remove("bg-gray-800", "hover:bg-gray-700");
+            document.getElementById(`lang-${lang}`).classList.add("bg-primary");
+            
+            // Update direction
+            document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+            document.documentElement.lang = lang;
+        }
+
+        // Download system
+        function startDownload(gameId) {
+            const game = gamesData.find(g => g.id === gameId || g.name.toLowerCase().includes(gameId));
+            if (game) {
+                currentDownloadUrl = game.mediafireUrl;
+                countdownValue = 5;
+                
+                // Show modal
+                document.getElementById("downloadModal").classList.remove("hidden");
+                document.getElementById("countdown").textContent = countdownValue;
+                
+                // Start countdown
+                downloadTimer = setInterval(() => {
+                    countdownValue--;
+                    document.getElementById("countdown").textContent = countdownValue;
+                    
+                    if (countdownValue <= 0) {
+                        clearInterval(downloadTimer);
+                        proceedDownload();
+                    }
+                }, 1000);
+            }
+        }
+
+        function proceedDownload() {
+            clearInterval(downloadTimer);
+            
+            // Open MediaFire in new tab
+            window.open(currentDownloadUrl, "_blank");
+            
+            // Hide modal
+            document.getElementById("downloadModal").classList.add("hidden");
+            
+            // Show success message
+            showNotification("تم توجيهك إلى صفحة التحميل بنجاح!", "success");
+        }
+
+        function cancelDownload() {
+            clearInterval(downloadTimer);
+            document.getElementById("downloadModal").classList.add("hidden");
+            showNotification("تم إلغاء عملية التحميل", "info");
+        }
+
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement("div");
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 transform transition-transform duration-300 ${
+                type === "success" ? "bg-green-600" : "bg-blue-600"
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${type === "success" ? "check-circle" : "info-circle"} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = "translateX(100%)";
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute("href");
+                if (targetId !== "#") {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: "smooth"
+                        });
+                    }
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector("input[type='text']");
+        searchInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                const query = this.value.trim();
+                if (query) {
+                    showNotification(`جاري البحث عن: ${query}`, "info");
+                    // In a real implementation, you would make an API call here
+                }
+            }
+        });
+
+        // Newsletter subscription
+        const newsletterBtn = document.querySelector("footer button:contains('اشترك الآن')");
+        newsletterBtn.addEventListener("click", function() {
+            const emailInput = this.parentElement.querySelector("input[type='email']");
+            const email = emailInput.value.trim();
+            
+            if (email && validateEmail(email)) {
+                showNotification("تم الاشتراك في النشرة البريدية بنجاح!", "success");
+                emailInput.value = "";
+            } else {
+                showNotification("يرجى إدخال بريد إلكتروني صحيح", "info");
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Initialize with Arabic language
+        switchLanguage("ar");
+    </script>
+</body>
+</html>
